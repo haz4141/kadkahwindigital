@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     initThemeCards();
     initFormListeners();
-    initCheckout();
     updatePreview();
 });
 
@@ -57,29 +56,18 @@ function updatePreview() {
             </div>
             <div class="event-date">${eventDate}</div>
             <div class="event-time">${eventTime}</div>
-            <div class="venue">${venue.substring(0, 50)}${venue.length > 50 ? '...' : ''}</div>
+            <div class="venue">${venue.substring(0, 50)}</div>
         </div>
     `;
 
-    // Store data for checkout
-    document.getElementById('cardDataField').value = JSON.stringify(data);
-    document.getElementById('checkoutCardData').value = JSON.stringify(data);
+    saveCardData();
 }
 
-function initCheckout() {
-    document.getElementById('checkoutForm')?.addEventListener('submit', function (e) {
-        const groom = document.querySelector('[name="groom_name"]').value.trim();
-        const bride = document.querySelector('[name="bride_name"]').value.trim();
-        const date = document.querySelector('[name="event_date"]').value;
-        const wa = document.querySelector('[name="whatsapp"]').value.trim();
-
-        if (!groom || !bride || !date || !wa) {
-            e.preventDefault();
-            alert('Sila isi nama pengantin, tarikh majlis, dan nombor WhatsApp.');
-            return false;
-        }
-        updatePreview();
-    });
+function saveCardData() {
+    const form = document.getElementById('weddingForm');
+    const fd = new FormData(form);
+    const data = Object.fromEntries(fd);
+    localStorage.setItem('cardData', JSON.stringify(data));
 }
 
 function formatDate(dateStr) {

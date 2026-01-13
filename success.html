@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berjaya - KadKahwin Digital</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .success-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .success-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 48px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 36px;
+        }
+
+        .card-link-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin: 24px 0;
+        }
+
+        .card-link-box input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .share-btns {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .share-btn {
+            padding: 12px 20px;
+            background: #25d366;
+            color: white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="success-page">
+        <div class="success-card">
+            <div class="success-icon">💒</div>
+            <h1>Tahniah! 🎉</h1>
+            <p style="color:var(--text-secondary);margin-bottom:16px">Kad kahwin digital anda telah dicipta!</p>
+
+            <div class="card-link-box">
+                <label style="display:block;margin-bottom:8px;color:var(--text-muted);font-size:13px">Link Kad Kahwin
+                    Anda</label>
+                <input type="text" id="cardUrl" readonly onclick="this.select()">
+            </div>
+
+            <div class="share-btns">
+                <a href="#" id="whatsappShare" class="share-btn">📱 Kongsi WhatsApp</a>
+                <button onclick="copyLink()" class="share-btn"
+                    style="background:var(--secondary);border:none;cursor:pointer">📋 Salin Link</button>
+            </div>
+
+            <a href="index.html" class="btn btn-secondary">← Kembali</a>
+        </div>
+    </div>
+    <script>
+        const cardData = JSON.parse(localStorage.getItem('cardData') || '{}');
+        const cardId = 'KKD' + Date.now().toString(36);
+        const cardUrl = 'https://kadkahwin.digital/v/' + cardId;
+
+        document.getElementById('cardUrl').value = cardUrl;
+        document.getElementById('whatsappShare').href = 'https://wa.me/?text=' + encodeURIComponent('Anda dijemput ke majlis perkahwinan kami! ' + cardUrl);
+
+        function copyLink() {
+            document.getElementById('cardUrl').select();
+            document.execCommand('copy');
+            alert('Link telah disalin!');
+        }
+    </script>
+</body>
+
+</html>
